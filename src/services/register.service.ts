@@ -1,6 +1,6 @@
 // src/services/auth.service.ts
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../generated/prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
