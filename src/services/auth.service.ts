@@ -1,15 +1,17 @@
 import { Request, Response } from "express";
-import { db } from "../config/db";
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+const prisma = new PrismaClient();
+
 export const login = async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;
+
   try {
-    const [users]: any = await db.query("SELECT * FROM users WHERE email = ?", [
-      email,
-    ]);
-    const user = users[0];
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       res.status(401).json({ message: "Invalid credentials" });
