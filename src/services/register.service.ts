@@ -1,11 +1,10 @@
-// src/services/auth.service.ts
 import { Request, Response } from "express";
 import { PrismaClient } from "../generated/prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-export const register = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response): Promise<any> => {
   const { first_name, last_name_p, last_name_m, email, password } = req.body;
 
   try {
